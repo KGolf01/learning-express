@@ -4,10 +4,9 @@ import { rateLimit } from "express-rate-limit";
 import { env } from "@common/utils/envConfig";
 import { logger } from "@src/server";
 
-const rateLimiter = (limitMaxRequest?: number) =>
-  rateLimit({
+const rateLimiter = rateLimit({
     legacyHeaders: true,
-    limit: limitMaxRequest ?? env.COMMON_RATE_LIMIT_MAX_REQUESTS ?? 20,
+    limit: env.COMMON_RATE_LIMIT_MAX_REQUESTS ?? 20,
     // message: 'Too many requests, please try again later.',
     message: `You have exceeded the ${env.COMMON_RATE_LIMIT_MAX_REQUESTS} requests limit!, please try again later.`,
     standardHeaders: true,
@@ -83,7 +82,6 @@ export default rateLimiter;
 //     const requestsWithinWindow = data.filter(
 //       (entry) => entry.requestTimeStamp > windowStartTimestamp
 //     );
-//     console.log("requestsWithinWindow", requestsWithinWindow);
 //     const totalWindowRequestsCount = requestsWithinWindow.reduce(
 //       (accumulator, entry) => accumulator + entry.requestCount,
 //       0

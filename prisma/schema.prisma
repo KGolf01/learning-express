@@ -46,6 +46,8 @@ model User {
     Token      Token[]      @relation(name: "Token")
     SMS        SMS[]        @relation(name: "SMS")
     Attachment Attachment[] @relation(name: "Attachment")
+    Room       Room[]       @relation(name: "Room")
+    Message    Message[]
 }
 
 model Attachment {
@@ -109,4 +111,28 @@ model SMS {
     UpdatedAt    DateTime   @updatedAt
 
     User User? @relation(name: "SMS", fields: [CreatedBy], references: [UserID])
+}
+
+model Room {
+    id        String    @id @default(uuid()) @db.Uuid
+    roomName  String    @unique()
+    student   String[]  @db.Uuid
+    createdBy String    @db.Uuid
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt()
+
+    messages  Message[]
+    users     User      @relation(name: "Room", fields: [createdBy], references: [UserID])
+}
+
+model Message {
+    id        String   @id @default(uuid()) @db.Uuid
+    content   String
+    roomId    String   @db.Uuid
+    UserID    String   @db.Uuid
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt()
+
+    room Room @relation(fields: [roomId], references: [id])
+    user User @relation(fields: [UserID], references: [UserID])
 }

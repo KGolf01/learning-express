@@ -362,7 +362,6 @@ async function writeData(
   if (isRedisWorking()) {
     try {
       // write data to the Redis cache
-      console.log("writeData");
       await redisClient?.set(key, JSON.stringify(data), options);
     } catch (e) {
       console.error(`Failed to cache data for key=${key}`, e);
@@ -393,11 +392,9 @@ export function redisCachingMiddleware(
       if (cachedValue) {
         try {
           // if it is JSON data, then return it
-          console.log("cachedValue");
           return res.json(JSON.parse(cachedValue));
         } catch {
           // if it is not JSON data, then return it
-          console.log("cachedValue");
           return res.send(cachedValue);
         }
       } else {

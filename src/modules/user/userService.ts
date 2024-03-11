@@ -143,7 +143,6 @@ export const userService = {
   delete: async (id: string) => {
     try {
       const checkUser = await userRepository.findByIdAsync(id);
-      console.log(checkUser);
       if (!checkUser) {
         return new ServiceResponse(
           ResponseStatus.Failed,

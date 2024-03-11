@@ -9,6 +9,8 @@ import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import { createApiResponse } from "@api-docs/openAPIResponseBuilders";
 import { LoginSchema } from "./authModel";
 import { authService } from "./authService";
+import { sendMail } from "@common/utils/sendMail";
+import { defaultTempleteEmail } from "@common/utils/templates/email";
 
 export const authRegistry = new OpenAPIRegistry();
 
@@ -39,6 +41,15 @@ export const authRouter: Router = (() => {
     async (req: Request, res: Response) => {
       const payload = req.body;
       const serviceResponse = await userService.create(payload);
+      // sendMail({
+      //   title: "User management",
+      //   subject: "User was registered",
+      //   html: defaultTempleteEmail(),
+      //   senderEmail: "khattiya.dokbua@gmail.com",
+      //   senderName: "khattiya",
+      //   recipientEmail: "khattiya.d.c@gmail.com",
+      //   recipientName: "khattiya",
+      // });
       handleServiceResponse(serviceResponse, res);
     }
   );

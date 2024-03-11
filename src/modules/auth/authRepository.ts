@@ -25,8 +25,6 @@ export const authRepository = {
 
       if (user?.Password) {
         const passowrd = EncryptDecrypt.decryption(user.Password);
-        console.log(passowrd);
-        console.log(payload.Password);
         const token = jwt.sign({ userId: user.UserID }, env.JWT_SECRET, {
           expiresIn: env.ACCESS_EXPIRATION_MINUTES,
         });

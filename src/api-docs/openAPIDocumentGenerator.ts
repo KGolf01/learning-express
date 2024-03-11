@@ -4,6 +4,8 @@ import {
 } from "@asteasolutions/zod-to-openapi";
 import { attachmentRegistry } from "@modules/attachment/attachmentRouter";
 import { authRegistry } from "@modules/auth/authRouter";
+import { messageRegistry } from "@modules/message/messageRouter";
+import { roomRegistry } from "@modules/room/roomRouter";
 
 import { userRegistry } from "@modules/user/userRouter";
 
@@ -12,6 +14,8 @@ export function generateOpenAPIDocument() {
     authRegistry,
     userRegistry,
     attachmentRegistry,
+    roomRegistry,
+    messageRegistry
   ]);
   const generator = new OpenApiGeneratorV3(registry.definitions);
 
